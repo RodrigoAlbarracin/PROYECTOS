@@ -11,7 +11,7 @@
       background: #f5f5f5;
     }
 
-    /* Layout general */
+    
     .container {
       display: grid;
       grid-template-columns: 250px 1fr;
@@ -19,7 +19,7 @@
       padding: 20px;
     }
 
-    /* Filtros */
+    
     .filtros {
       background: white;
       padding: 15px;
@@ -27,7 +27,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
-    /* Productos */
+    
     .productos {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -67,28 +67,27 @@
       color: #555;
     }
 
-    /* Responsive */
+    
     @media (max-width: 768px) {
       .container {
         grid-template-columns: 1fr;
       }
       .filtros {
-        order: -1; /* Filtros arriba en móvil */
+        order: -1; 
       }
     }
   </style>
 </head>
 <body>
   <main class="container">
-    <!-- Filtros -->
     <section id="filtros" class="filtros"></section>
 
-    <!-- Productos -->
+
     <section id="productos" class="productos"></section>
   </main>
 
   <script>
-    // Datos de ejemplo
+    
     const productos = [
       { id: 1, nombre: "Camiseta Roja", precio: 19.99, categoria: "ropa", img: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTGAAbNUVQJr-4p0nyGS6Wm0KodzF-WHf84M6ptshyqMeRRslqbVzxwrJtdtKBgZsROvUriQOSR9-XUskfDa5mD5RYZ_CJ-GE_T1tIs9QhPe7zinuVvNBDGxLut9HhWCRXE6IE_beA&usqp=CAc" },
       { id: 2, nombre: "Pantalón Azul", precio: 29.99, categoria: "ropa", img: "data:image/jpeg;base64,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" },
@@ -99,7 +98,7 @@
     const contenedorProductos = document.getElementById("productos");
     const contenedorFiltros = document.getElementById("filtros");
 
-    // Función para renderizar productos
+    
     function renderProductos(lista) {
       contenedorProductos.innerHTML = "";
       lista.forEach(prod => {
@@ -116,7 +115,7 @@
       });
     }
 
-    // Filtros dinámicos
+    
     const filtrosHTML = `
       <h2>Filtros</h2>
       <label><input type="checkbox" value="ropa"> Ropa</label><br>
@@ -125,7 +124,7 @@
     `;
     contenedorFiltros.insertAdjacentHTML("beforeend", filtrosHTML);
 
-    // Evento para aplicar filtros
+    
     contenedorFiltros.addEventListener("change", () => {
       const seleccionados = Array.from(contenedorFiltros.querySelectorAll("input:checked"))
         .map(el => el.value);
@@ -138,7 +137,7 @@
       }
     });
 
-    // Render inicial
+    
     renderProductos(productos);
   </script>
 </body>
