@@ -1,4 +1,4 @@
-// Datos de ejemplo
+
 const productos = [
   { id: 1, nombre: "Camiseta Roja", precio: 19.99, img: "https://via.placeholder.com/250x150/ff4444/ffffff?text=Camiseta+Roja" },
   { id: 2, nombre: "Pantalón Azul", precio: 29.99, img: "https://via.placeholder.com/250x150/4444ff/ffffff?text=Pantalon+Azul" },
@@ -6,7 +6,7 @@ const productos = [
   { id: 4, nombre: "Chaqueta Verde", precio: 59.99, img: "https://via.placeholder.com/250x150/44ff44/ffffff?text=Chaqueta+Verde" }
 ];
 
-// Render productos
+
 const contenedorProductos = document.getElementById("productos");
 
 productos.forEach(prod => {
@@ -22,7 +22,7 @@ productos.forEach(prod => {
   contenedorProductos.insertAdjacentHTML("beforeend", carta);
 });
 
-// Render filtros (ejemplo básico)
+
 const contenedorFiltros = document.getElementById("filtros");
 
 const filtrosHTML = `
