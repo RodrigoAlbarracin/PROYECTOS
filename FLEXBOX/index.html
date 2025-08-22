@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Flex Responsive</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* === HEADER === */
+    header {
+      background: #0077cc;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-size: 1.5em;
+    }
+
+    nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    nav a {
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    main {
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap; 
+    }
+
+    .contenido {
+      flex: 3;
+      min-width: 250px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .sidebar {
+      flex: 1;
+      min-width: 200px;
+      background: #eaeaea;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      main {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      nav a {
+        width: 100%;
+        text-align: left;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Mi Página Flex</h1>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#">Servicios</a>
+      <a href="#">Productos</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="contenido">
+      <h2>Bienvenido a la página</h2>
+      <p>
+        Esta es una práctica para trabajar con Flexbox y aprender a hacer una página responsive. 
+      </p>
+      <p>
+        En pantallas grandes verás el contenido a la izquierda y la barra lateral a la derecha. 
+        En tablets y móviles, se adaptará automáticamente para que sea cómodo de leer.
+      </p>
+    </section>
+
+    <aside class="sidebar">
+      <h3>Barra lateral</h3>
+      <ul>
+        <li>Enlace útil 1</li>
+        <li>Enlace útil 2</li>
+        <li>Enlace útil 3</li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 - Mi Página Flex Responsive</p>
+  </footer>
+
+</body>
+</html>
