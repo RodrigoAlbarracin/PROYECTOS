@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tienda Demo | Productos destacados</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+ 
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+
+      --color-bg: #0f172a;         
+      --color-card: #111827;        
+      --color-muted: #94a3b8;       
+      --color-text: #e5e7eb;       
+      --color-accent: #38bdf8;      
+      --color-accent-2: #22c55e;   
+      --color-border: #1f2937;      
+
+     
+      --radius: 16px;
+      --container: 1200px;
+      --gap: 16px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+      background: radial-gradient(1200px 800px at 20% -10%, #0b1228 0%, var(--color-bg) 60%), var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.5;
+    }
+
+    h1, h2, h3 { font-weight: 800; margin: 0 0 0.5rem; }
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 2.5vw, 2.75rem); }
+    h2 { font-size: clamp(1.25rem, 2vw, 2rem); }
+    h3 { font-size: clamp(1rem, 1.5vw, 1.25rem); }
+    p, span { font-size: 1rem; color: var(--color-muted); }
+
+    a { color: var(--color-accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      width: min(100%, var(--container));
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      position: sticky;
+      top: 0; z-index: 20;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav {
+      display: flex; 
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 24px;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    .nav a.btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 14px; border: 1px solid var(--color-border);
+      border-radius: 999px; transition: transform .15s ease, background .15s ease;
+      background: #0b1220;
+    }
+    .nav a.btn:hover { transform: translateY(-1px); background: #0b1228; }
+
+    main { display: grid; gap: 32px; }
+
+    .hero {
+      display: grid; gap: 16px;
+      grid-template-columns: 1fr;
+      padding-top: 24px;
+    }
+
+    .badge { display: inline-block; padding: 6px 10px; border: 1px solid var(--color-border); border-radius: 999px; font-size: 0.85rem; color: var(--color-muted); }
+
+    .grid {
+      display: grid; 
+      gap: 20px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    section.catalogo { display: grid; gap: 20px; }
+
+    article.producto {
+      grid-column: span 12;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      background: linear-gradient(180deg, #101827 0%, #0c1224 100%);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    article.producto:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.35); }
+
+    .thumb { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .etiqueta { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,.5); padding: 6px 10px; border-radius: 999px; font-size: .85rem; }
+
+    .contenido { padding: 16px; display: grid; gap: 6px; }
+    .precio { font-weight: 800; color: var(--color-text); }
+
+    .acciones { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 12px 16px 16px; }
+
+    .boton {
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--color-border);
+      background: #0b1220; color: var(--color-text);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: transform .15s ease, background .15s ease;
+    }
+    .boton:hover { transform: translateY(-1px); background: #0b1228; }
+
+ 
+    .listado {
+      background: linear-gradient(180deg, #101827 0%, #0c1224 100%);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .listado ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 6px; }
+
+    footer {
+      border-top: 1px solid var(--color-border);
+      color: var(--color-muted);
+    }
+
+   
+    @media (max-width: 374px) {
+      .nav { padding: 10px 16px; }
+      .acciones { flex-direction: column; align-items: stretch; }
+    }
+
+    @media (min-width: 375px) and (max-width: 768px) {
+      article.producto { grid-column: span 6; }
+    }
+
+    @media (min-width: 769px) {
+      .hero { grid-template-columns: 1.2fr 1fr; align-items: center; }
+      article.producto { grid-column: span 4; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav" aria-label="Navegación principal">
+      <a class="btn" href="#catalogo">Catálogo</a>
+      <a class="btn" href="#top-ventas">Top ventas</a>
+      <a class="btn" href="#ayuda">Ayuda</a>
+    </nav>
+  </header>
+
+  <main id="contenido" class="container">
+    <section class="hero" aria-labelledby="titulo-pagina">
+      <div>
+        <span class="badge">Novedades</span>
+        <h1 id="titulo-pagina">Tienda Demo: productos destacados</h1>
+        <p>Ejemplo de página que cumple los criterios HTML y CSS: estructura semántica, grid/flex, responsive (móvil &gt; tablet &gt; escritorio), variables CSS, tipografía y enlaces externos con <code>rel="noopener"</code>.</p>
+      </div>
+      <div class="listado" id="top-ventas">
+        <h2>Top ventas (lista UL)</h2>
+        <ul>
+          <li>Producto 1 — Auriculares inalámbricos</li>
+          <li>Producto 2 — Smartwatch deportivo</li>
+          <li>Producto 3 — Altavoz Bluetooth</li>
+          <li>Producto 4 — Cámara instantánea</li>
+          <li>Producto 5 — Teclado mecánico</li>
+          <li>Producto 6 — Mochila urbana</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="catalogo" class="catalogo" aria-labelledby="h2-catalogo">
+      <h2 id="h2-catalogo">Catálogo (12 productos con imágenes)</h2>
+      <div class="grid">
+        <article class="producto" aria-label="Auriculares inalámbricos">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/180/800/600" alt="Auriculares inalámbricos negros sobre mesa" loading="lazy">
+            <span class="etiqueta">-25%</span>
+          </div>
+          <div class="contenido">
+            <h3>Auriculares inalámbricos</h3>
+            <p>Cancelación de ruido, 30h de autonomía, carga rápida USB‑C.</p>
+            <span class="precio">69,99 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/auriculares-inalambricos" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#" aria-label="Añadir auriculares al carrito">Añadir</a>
+          </div>
+        </article>
+
+        <article class="producto" aria-label="Smartwatch deportivo">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/1060/800/600" alt="Smartwatch con pantalla encendida" loading="lazy">
+            <span class="etiqueta">Nuevo</span>
+          </div>
+          <div class="contenido">
+            <h3>Smartwatch deportivo</h3>
+            <p>GPS integrado, 5 ATM, métricas avanzadas de salud.</p>
+            <span class="precio">129,00 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/smartwatch-deportivo" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#">Añadir</a>
+          </div>
+        </article>
+
+        <article class="producto" aria-label="Altavoz Bluetooth">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/1080/800/600" alt="Altavoz portátil sobre superficie de madera" loading="lazy">
+            <span class="etiqueta">Top</span>
+          </div>
+          <div class="contenido">
+            <h3>Altavoz Bluetooth</h3>
+            <p>Sonido 360°, resistencia al agua IP67, 12h de batería.</p>
+            <span class="precio">49,90 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/altavoz-bluetooth" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#">Añadir</a>
+          </div>
+        </article>
+
+        <article class="producto" aria-label="Cámara instantánea">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/250/800/600" alt="Cámara instantánea retro en color pastel" loading="lazy">
+          </div>
+          <div class="contenido">
+            <h3>Cámara instantánea</h3>
+            <p>Fotos al instante con flash automático y modo selfie.</p>
+            <span class="precio">89,00 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/camara-instantanea" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#">Añadir</a>
+          </div>
+        </article>
+
+        <article class="producto" aria-label="Teclado mecánico">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/223/800/600" alt="Teclado mecánico con retroiluminación" loading="lazy">
+          </div>
+          <div class="contenido">
+            <h3>Teclado mecánico</h3>
+            <p>Switches rojos, anti-ghosting, RGB per‑key.</p>
+            <span class="precio">79,99 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/teclado-mecanico" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#">Añadir</a>
+          </div>
+        </article>
+
+        <article class="producto" aria-label="Mochila urbana">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/1062/800/600" alt="Mochila minimalista apoyada en la pared" loading="lazy">
+          </div>
+          <div class="contenido">
+            <h3>Mochila urbana</h3>
+            <p>Capacidad 20L, puerto USB, compartimento para portátil.</p>
+            <span class="precio">39,90 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/mochila-urbana" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#">Añadir</a>
+          </div>
+        </article>
+
+        <article class="producto" aria-label="Botella térmica">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/1069/800/600" alt="Botella térmica de acero inoxidable" loading="lazy">
+          </div>
+          <div class="contenido">
+            <h3>Botella térmica</h3>
+            <p>Acero 18/8, mantiene 24h frío y 12h calor.</p>
+            <span class="precio">19,95 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/botella-termica" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#">Añadir</a>
+          </div>
+        </article>
+
+        <article class="producto" aria-label="Lámpara de escritorio">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/0/800/600" alt="Lámpara de escritorio moderna" loading="lazy">
+          </div>
+          <div class="contenido">
+            <h3>Lámpara de escritorio</h3>
+            <p>Luz LED regulable, brazo articulado, consumo eficiente.</p>
+            <span class="precio">24,90 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/lampara-escritorio" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#">Añadir</a>
+          </div>
+        </article>
+
+        <article class="producto" aria-label="Gafas de sol">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/1044/800/600" alt="Gafas de sol sobre arena" loading="lazy">
+          </div>
+          <div class="contenido">
+            <h3>Gafas de sol</h3>
+            <p>Protección UV400, lentes polarizadas, marco ligero.</p>
+            <span class="precio">29,90 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/gafas-de-sol" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#">Añadir</a>
+          </div>
+        </article>
+
+        <article class="producto" aria-label="Zapatillas running">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/21/800/600" alt="Zapatillas de running sobre fondo oscuro" loading="lazy">
+          </div>
+          <div class="contenido">
+            <h3>Zapatillas running</h3>
+            <p>Amortiguación reactiva, upper transpirable, 260g.</p>
+            <span class="precio">89,95 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/zapatillas-running" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#">Añadir</a>
+          </div>
+        </article>
+
+        <article class="producto" aria-label="Cafetera espresso">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/27/800/600" alt="Cafetera espresso de acero" loading="lazy">
+          </div>
+          <div class="contenido">
+            <h3>Cafetera espresso</h3>
+            <p>15 bar, vaporizador de leche, portafiltro metálico.</p>
+            <span class="precio">119,00 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/cafetera-espresso" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#">Añadir</a>
+          </div>
+        </article>
+
+        <article class="producto" aria-label="Tablet 10''">
+          <div class="thumb">
+            <img src="https://picsum.photos/id/1061/800/600" alt="Tablet de 10 pulgadas sobre mesa" loading="lazy">
+          </div>
+          <div class="contenido">
+            <h3>Tablet 10”</h3>
+            <p>Pantalla FHD, 6GB RAM, 128GB, batería 8.000 mAh.</p>
+            <span class="precio">199,00 €</span>
+          </div>
+          <div class="acciones">
+            <a class="boton" href="https://example.com/producto/tablet-10" target="_blank" rel="noopener">Ver producto original</a>
+            <a class="boton" href="#">Añadir</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+
+  <footer id="ayuda">
+    <div class="container" role="contentinfo">
+      <p>© 2025 Tienda Demo. Esta es una página de ejemplo para practicar HTML y CSS.</p>
+    </div>
+  </footer>
+</body>
+</html>
